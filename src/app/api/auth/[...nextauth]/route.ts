@@ -2,7 +2,6 @@ import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import prisma from "@/libs/prisma"
 import bcrypt from "bcrypt"
-import { pages } from "next/dist/build/templates/app-page"
 
 export const authOptions = {
   // Configure one or more authentication providers
@@ -34,9 +33,6 @@ export const authOptions = {
       }
   })
   ],
-  pages:{
-    error:"/login"
-  }
 }
 
 const handler = NextAuth(authOptions)

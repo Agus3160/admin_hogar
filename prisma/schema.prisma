@@ -26,7 +26,7 @@ model Document{
   id String @id @default(uuid())
   url String
   title String
-  section Section @relation(fields: [sectionId], references: [id])
+  section Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
   sectionId String
 }
 

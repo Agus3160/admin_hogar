@@ -31,6 +31,8 @@ export default function Home() {
           e.preventDefault()
           const res = await signIn("credentials", {...formData, redirect: false})
 
+          console.log(res)
+
           if (res?.error) {
             alert(res.error)
           }else{
