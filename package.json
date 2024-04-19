@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "prisma generate && tsc ./scripts/initializeAdmin.ts && node ./scripts/initializeAdmin.js",
+    "postinstall": "prisma generate",
+    "postbuild": "tsc ./scripts/initializeAdmin.ts && node ./scripts/initializeAdmin.js",
     "start": "next start",
     "lint": "next lint"
   },
