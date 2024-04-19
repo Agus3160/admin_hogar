@@ -16,8 +16,12 @@ export default function DocumentDashboard() {
   },[])
 
   const handleDeleteDocument = async (id:string)=>{
-    await deleteDocument(id)
-    setDocuments(documents.filter(d => d.id != id))
+    try{
+      await deleteDocument(id)
+      setDocuments(documents.filter((document) => document.id !== id))
+    }catch(err){
+      console.error(err)
+    }
   }
 
   return (

@@ -1,7 +1,8 @@
 
 import prisma from "@/libs/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { Section } from '@/types';
+import { getToken } from "next-auth/jwt";
 
 export async function GET(){
   const sections = await prisma.section.findMany()
@@ -9,7 +10,11 @@ export async function GET(){
   return NextResponse.json({data:sections}, {status: 200})
 } 
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+
+  const token = await getToken({ req })
+  if(!token) return NextResponse.json({error:"Unauthorized"}, {status: 401})
+
   const newSectionData:Section = await req.json()
   const section = await prisma.section.create({data:newSectionData})
   if(!section) return NextResponse.json({error:"Section not created"}, {status: 500})

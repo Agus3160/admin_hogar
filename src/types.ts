@@ -16,3 +16,8 @@ export type ApiResponse<T> = {
   error?:string
   message?:string
 }
+
+export type DataPagination<T> ={
+  list:T[],
+  pages:number,
+}

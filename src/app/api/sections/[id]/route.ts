@@ -1,16 +1,25 @@
 
 import prisma from "@/libs/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { Section } from '@/types';
+import { getToken } from "next-auth/jwt";
 
-export async function DELETE(req:Request, {params}:{params:{id:string}}){
+export async function DELETE(req:NextRequest, {params}:{params:{id:string}}){
+
+  const token = await getToken({ req })
+  if(!token) return NextResponse.json({error:"Unauthorized"}, {status: 401})
+
   const id = params.id
   const section = await prisma.section.delete({where:{id}})
   if(!section) return NextResponse.json({error:"Document not deleted"}, {status: 500})
   return NextResponse.json({message: "Document deleted"}, {status: 200})
 } 
 
-export async function PUT(req: Request, {params}:{params:{id:string}}) {
+export async function PUT(req: NextRequest, {params}:{params:{id:string}}) {
+
+  const token = await getToken({ req })
+  if(!token) return NextResponse.json({error:"Unauthorized"}, {status: 401})
+
   const id = params.id
   const newSectionData:Section = await req.json()
   const section = await prisma.section.update({where:{id}, data:newSectionData})

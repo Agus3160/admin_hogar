@@ -16,8 +16,12 @@ export default function DocumentDashboard() {
   },[])
 
   const handleDeleteSelection = async (id:string) => {
-    await deleteSection(id)
-    setSections(sections.filter((section) => section.id !== id))
+    try{
+      await deleteSection(id)
+      setSections(sections.filter((section) => section.id !== id))
+    }catch(err){
+      console.error(err)
+    }
   }
 
   return (

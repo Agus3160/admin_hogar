@@ -41,7 +41,6 @@ export default function DocumentCreate() {
           onSubmit={async (e) => {
             e.preventDefault()
             await createDocument(formData)
-            setFormData({ title: "", url: "", sectionId: "" })
           }}
         >
           <div className="flex flex-col gap-2">

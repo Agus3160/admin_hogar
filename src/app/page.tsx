@@ -1,15 +1,16 @@
-
-import InformationCard from "@/components/InformationCardList";
+import SectionList from "@/components/SectionList";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center gap-16 p-24">
+    <main className="flex  flex-col items-center gap-16 m-8">
       <h1>Hogar Sagrado Corazon</h1>
 
-      <InformationCard title="Informacion de la Entidad" />
-      <InformationCard title="Funcionarios" />
-      <InformationCard title="Inventario" />
-      <InformationCard title="Balance del año anterior" />
+      <div>
+        <h2>¿Quienes somos?</h2>
+        <p></p>
+      </div>
+
+      <SectionList />
 
     </main>
   );
