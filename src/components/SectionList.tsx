@@ -16,7 +16,7 @@ export default function SectionList() {
   }, [])
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col gap-32'>
       {
         !sections || sections.length == 0 ? 
           <p>No sections uploaded yet</p> 

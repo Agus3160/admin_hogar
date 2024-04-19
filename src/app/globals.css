@@ -8,7 +8,9 @@ h1{
 }
 
 body {
-  @apply bg-slate-200;
+  @apply bg-gradient-to-r;
+  @apply from-slate-100;
+  @apply to-slate-300;
 }
 
 @layer utilities {

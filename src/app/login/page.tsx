@@ -11,6 +11,8 @@ export default function Home() {
     password: "",
   })
 
+  const [errorMessage, setErrorMessage] = useState("")
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({
@@ -22,7 +24,7 @@ export default function Home() {
   const router = useRouter()
 
   return (
-    <main className="flex min-h-screen flex-col items-center gap-16 p-24">
+    <main  className="flex min-h-screen flex-col items-center justify-center gap-16">
       
       <h1>Login</h1>
 
@@ -31,7 +33,7 @@ export default function Home() {
           e.preventDefault()
           const res = await signIn("credentials", {...formData, redirect: false})
           if (res?.error) {
-            alert(res.error)
+            setErrorMessage(res.error)
           }else{
             router.push("/admin")
           }
@@ -39,17 +41,20 @@ export default function Home() {
         }}
         className="flex flex-col gap-4"
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-2">
           <label htmlFor="email">Email</label>
-          <input onChange={handleChange} type="email" name="email" id="email" />
+          <input className="p-2 rounded" onChange={handleChange} type="email" name="email" id="email" />
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-2">
           <label htmlFor="password">Password</label>
-          <input onChange={handleChange} type="password" name="password" id="password" />
+          <input className="p-2 rounded" onChange={handleChange} type="password" name="password" id="password" />
         </div>
 
-        <button className="bg-slate-400 rounded mt-2" type="submit">Login</button>
+        <button className="bg-slate-400 p-2 rounded mt-2" type="submit">Login</button>
+
+        {errorMessage.length > 0 && <span className="text-red-500 text-sm text-center">{errorMessage}</span>}
+
       </form>
 
     </main>

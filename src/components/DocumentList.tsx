@@ -25,27 +25,28 @@ export default function DocumentList({ sectionId, sectionName }: Prop) {
   }, [skip])
 
   return (
-    <div className='flex flex-col'>
-      <h2 className='text-2xl'>{sectionName}</h2>
-      <hr className="my-4"></hr>
+    <div className='flex flex-col gap-6 bg-slate-100 p-8 rounded shadow-md'>
+      <h2 className='text-2xl font-bold'>{sectionName}</h2>
       {
         !documents || documents.length == 0 ? 
           <p>No documents uploaded yet</p> 
         : 
         <div className='flex flex-col gap-4'>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 sm:grid-rows-2 justify-items-center gap-4'>
+          <div className={'grid grid-cols-2 sm:grid-cols-4 justify-items-center gap-4' + (documents.length <= 4 ? ' sm:grid-cols-1' : ' sm:grid-cols-2')}>
               {documents.map(document =>
                 <DocumentCard key={document.id} title={document.title} url={document.url} />
               )}
           </div>
 
-          <div className='flex justify-around'>
-          <button className='bg-slate-500 p-3 rounded-full hover:bg-slate-600 disabled:bg-slate-500 disabled:opacity-50' disabled={skip -1 < 0} onClick={() => setSkip(skip - 8)}>
-            <ChevronLeft size={32} />
-          </button>
-          <button className='bg-slate-500 p-3 rounded-full hover:bg-slate-600 disabled:bg-slate-500 disabled:opacity-50' disabled={skip/8 >= pages-1} onClick={() => setSkip(skip + 8)}>
-            <ChevronRight size={32} />
-          </button>
+          <div className='flex justify-between gap-8 mt-6'>
+            <button className='bg-slate-500 flex items-center sm:w-1/3 p-3 rounded hover:bg-slate-600 disabled:bg-slate-500 disabled:opacity-50' disabled={skip -1 < 0} onClick={() => setSkip(skip - 8)}>
+              <ChevronLeft size={32} />
+              Previo
+            </button>
+            <button className='bg-slate-500 flex items-center sm:w-1/3 p-3 rounded hover:bg-slate-600 disabled:bg-slate-500 disabled:opacity-50' disabled={skip/8 >= pages-1} onClick={() => setSkip(skip + 8)}>
+              <ChevronRight size={32} />
+              Siguiente
+            </button>
           </div>
         </div>
       }

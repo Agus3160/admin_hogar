@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import prisma from "@/libs/prisma"
+import { Roles } from "@prisma/client"
 import bcrypt from "bcrypt"
 
 export const authOptions = {
@@ -22,13 +23,17 @@ export const authOptions = {
         if(!user) throw new Error("Email or password is incorrect")
 
         // Check if password is correct
-        const match = bcrypt.compare(credentials.password, user.password)
+        const match = await bcrypt.compare(credentials.password, user.password)
         if(!match) throw new Error("Email or password is incorrect")
+
+        // Check if user is admin
+        if(user.role !== Roles.ADMIN) throw new Error("You are not an admin")
 
         // If everything is correct, return the session
         return{
           id: user.id,
-          email: user.email
+          email: user.email,
+          rol: user.role
         }
       }
   })
@@ -38,7 +43,6 @@ export const authOptions = {
       signIn:"/login",
       signOut:"/",
       error:"/login"
-    
   }
 }
 
