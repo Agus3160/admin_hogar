@@ -37,6 +37,3 @@ next-env.d.ts
 
 #prisma
 migrations
-
-#scripts
-/scripts
