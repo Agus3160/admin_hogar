@@ -2,10 +2,9 @@
 import prisma from "@/libs/prisma";
 import { NextResponse, NextRequest } from "next/server";
 import { Document } from '@/types';
-import { NextApiRequest } from "next";
 import { getToken } from "next-auth/jwt";
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: NextRequest) {
 
   const token = await getToken({ req })
   if(!token) return NextResponse.json({error:"Unauthorized"}, {status: 401})
